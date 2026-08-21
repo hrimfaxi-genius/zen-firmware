@@ -43,7 +43,7 @@
         input-processors =
             <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
-            <&pmw3610_scroll_scaler 1 10>;
+            <&pmw3610_scroll_scaler 1 5>;
         process-next;
     };
 };
