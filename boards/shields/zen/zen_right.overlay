@@ -3,17 +3,23 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 &pointing_listener {
-    input-processors =
-        <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>,
-        <&zip_temp_layer 1 500>;
+    // 全レイヤー共通：まずはハードウェア依存の軸反転だけを通す
+    input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>;
 
+    // 【最優先】スクロール用レイヤー（例として4番）のときだけ、先にここで処理を奪い取って減速させる
     scroller {
-        layers = <4>;
+        layers = <4>; // スクロールさせたい特定のレイヤー番号だけをここに指定
         input-processors =
-            <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
-            <&zip_scroll_scaler 1 4>;
-        process-next;
+            <&zip_scroll_scaler 1 4>; // ここで確実にスクロール速度を1/4に落とす
+            
+        // ※「process-next;」をあえて書かないことで、レイヤー4の時は下のdefault_mmv（オートマウス）に処理を流さず、ここで完結させます
+    };
+
+    // 【全レイヤー対象】スクロール以外の「その他すべて」のレイヤーは自動的にここを通る
+    default_mmv {
+        // layers を指定しない（または 0 から最大の31まで自動で対象にするため記述を省略する）
+        input-processors = <&zip_temp_layer 1 500>; // 通常移動時だけオートマウスを発動
     };
 };
 
