@@ -9,6 +9,25 @@
         codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
         track-remainders;
     };
+
+    /* BTプロファイルごとのスクロール速度 <倍率 除数>
+     * 値 = 移動量 * 倍率 / 除数。除数を小さくするほど速い（従来は 1/20）
+     */
+    pmw3610_profile_scroll_scaler: pmw3610_profile_scroll_scaler {
+        compatible = "zmk,input-processor-profile-scaler";
+        #input-processor-cells = <0>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
+        track-remainders;
+        profile-scales = <
+            1 10   /* BT_SEL 0 : 2倍速 */
+            1 20   /* BT_SEL 1 : 従来どおり */
+            1 7    /* BT_SEL 2 : 約3倍速 */
+            1 20   /* BT_SEL 3 */
+            1 20   /* BT_SEL 4 */
+        >;
+        usb-scale = <1 10>;  /* USB接続時 */
+    };
 };
 
 &spi0 {
@@ -43,7 +62,7 @@
         input-processors =
             <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)>,
             <&zip_xy_to_scroll_mapper>,
-            <&pmw3610_scroll_scaler 1 20>;
+            <&pmw3610_profile_scroll_scaler>;
         process-next;
     };
 };
