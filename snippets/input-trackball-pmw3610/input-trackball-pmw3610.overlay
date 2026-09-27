@@ -21,7 +21,7 @@
         codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
         track-remainders;
         profile-scales = <
-            2 15   /* BT_SEL 0 : 2倍速 */
+            3 15   /* BT_SEL 0 : 3倍速 */
             1 15   /* BT_SEL 1 : 従来どおり */
             2 15   /* BT_SEL 2 : 2倍速 */
             1 15   /* BT_SEL 3 */
