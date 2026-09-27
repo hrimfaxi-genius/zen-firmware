@@ -22,7 +22,7 @@
         profile-scales = <
             1 10   /* BT_SEL 0 : 2倍速 */
             1 20   /* BT_SEL 1 : 従来どおり */
-            1 7    /* BT_SEL 2 : 約3倍速 */
+            1 10   /* BT_SEL 2 : 2倍速 */
             1 20   /* BT_SEL 3 */
             1 20   /* BT_SEL 4 */
         >;
