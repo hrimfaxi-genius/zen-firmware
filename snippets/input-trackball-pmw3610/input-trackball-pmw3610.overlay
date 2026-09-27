@@ -11,7 +11,8 @@
     };
 
     /* BTプロファイルごとのスクロール速度 <倍率 除数>
-     * 値 = 移動量 * 倍率 / 除数。除数を小さくするほど速い（従来は 1/20）
+     * 値 = 移動量 * 倍率 / 除数。除数を小さくするほど速い
+     * CPI 600 用に補正済み（CPI 800 時の 1/20 = 600 時の 1/15）
      */
     pmw3610_profile_scroll_scaler: pmw3610_profile_scroll_scaler {
         compatible = "zmk,input-processor-profile-scaler";
@@ -20,13 +21,13 @@
         codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
         track-remainders;
         profile-scales = <
-            1 10   /* BT_SEL 0 : 2倍速 */
-            1 20   /* BT_SEL 1 : 従来どおり */
-            1 10   /* BT_SEL 2 : 2倍速 */
-            1 20   /* BT_SEL 3 */
-            1 20   /* BT_SEL 4 */
+            2 15   /* BT_SEL 0 : 2倍速 */
+            1 15   /* BT_SEL 1 : 従来どおり */
+            2 15   /* BT_SEL 2 : 2倍速 */
+            1 15   /* BT_SEL 3 */
+            1 15   /* BT_SEL 4 */
         >;
-        usb-scale = <1 10>;  /* USB接続時 */
+        usb-scale = <2 15>;  /* USB接続時 */
     };
 };
 
@@ -44,7 +45,7 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 19 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        cpi = <800>;
+        cpi = <600>;
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
