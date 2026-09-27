@@ -112,6 +112,12 @@ source "${ZEPHYR_BASE}/subsys/logging/Kconfig.template.log_config"
 
 endif #PMW3610_ALT
 
+config ZEN_INPUT_PROCESSOR_PROFILE_SCALER
+    bool "Per-profile scaler input processor"
+    default y
+    depends on ZMK_POINTING
+    depends on DT_HAS_ZMK_INPUT_PROCESSOR_PROFILE_SCALER_ENABLED
+
 menuconfig IQS7211E
     bool "IQS7211E capcacitive touch sensor"
     select I2C
