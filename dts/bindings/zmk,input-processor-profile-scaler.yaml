@@ -1,0 +1,26 @@
+description: |
+  Input processor that scales values with a different multiplier/divisor
+  for each BLE profile (BT_SEL 0..4), and optionally for USB.
+
+compatible: "zmk,input-processor-profile-scaler"
+
+include: ip_zero_param.yaml
+
+properties:
+  type:
+    type: int
+    required: true
+  codes:
+    type: array
+    required: true
+  profile-scales:
+    type: array
+    required: true
+    description: |
+      Pairs of <multiplier divisor>, one pair per BLE profile in order
+      (profile 0, profile 1, ...). Profiles beyond the list use the last pair.
+  usb-scale:
+    type: array
+    description: |
+      <multiplier divisor> used while output is USB.
+      If omitted, the first pair of profile-scales is used.
